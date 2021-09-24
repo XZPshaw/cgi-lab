@@ -2,7 +2,7 @@
 import cgi, cgitb
 
 import os
-from templates import login_page,secret_page
+from templates import login_page,secret_page,after_login_incorrect
 from secret import username,password
 
 
@@ -28,10 +28,11 @@ print("</html>")
 
 
 #Q5
+'''
 if (uname == username and pword == password):
 	#print("Content-type:text/html\r\n\r\n")
-	print("Set-Cookie:UserID = {};\r\n".format(username))
-	print("Set-Cookie:Password = {};\r\n".format(password))
+	print("Set-Cookie:UserID = {};".format(username))
+	print("Set-Cookie:Password = {};".format(password))
 	#print("Set-Cookie:Domain = www.tutorialspoint.com;\r\n")
 	#print("Set-Cookie:Path = /perl;\r\n")
 	print("Content-type:text/html\r\n\r\n")
@@ -43,22 +44,29 @@ if (uname == username and pword == password):
 	print('<b>COOCKIE IS SET!</b>')
 	print('</body>')
 	print('</html>')
-
 '''
+
 #Q6
 user_id = None
 cookie_pw = None
-if os.environ.has_key('HTTP_COOKIE'):
-   for cookie in map(strip, split(os.environ['HTTP_COOKIE'], ';')):
-      (key, value ) = split(cookie, '=');
+if 'HTTP_COOKIE' in os.environ:
+   '''
+   for cookie in os.environ['HTTP_COOKIE'].split(';'):
+      key, value = cookie.split('=')
       if key == "UserID":
          user_id = value
-
-      if key == "Password":
+      if key == 'Password':
          cookie_pw = value
-         
-if user_id == uname and cookie_pw == pword:
-	print(templates.secret_page(user_id,cookie_pw))
+   '''
+   cookies = os.environ['HTTP_COOKIE'].split(';')
+   user_id = str(cookies[0].split('=')[1])
+   cookie_pw = str(cookies[1].split('=')[1])
 
-'''
-	
+
+if user_id == uname and cookie_pw == pword:
+	print(secret_page(user_id,cookie_pw))
+elif user_id != uname and cookie_pw != pword:
+	print(login_page())
+else:
+	print(after_login_incorrect())
+

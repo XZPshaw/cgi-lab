@@ -1,0 +1,27 @@
+Q1:
+we use the os.environ from os library to examin all environment variables given to the CGI script
+
+Q2:
+QUERY_STRING
+
+Q3:
+HTTP_USER_AGENT
+
+Q4:
+The CGI script will capture the field name sended by POST request and store it in FieldStorage
+then it could retrieve POSTed data through a method called "getvalue" 
+
+Q5:
+The syntax is basically 
+Set-Cookie: <cookie-name>=<cookie-value>
+
+Q6:
+cookies are sent back in a list-like key-value pair structure, where each cookie is seperted by semicolon
+
+<cookie-name1> = <cookie-content1>;<cookie-name2> = <cookie-content2>
+
+Q7:
+cookie is used to help webset to store client information so that it could be used later for convenience purpose instead storing same information over and over again
+
+Q8:
+https://github.com/XZPshaw/cgi-lab
